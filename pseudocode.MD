@@ -1,8 +1,16 @@
+We need a grid/table that displays basic time. In JS.
+
+ Divs for each hour it appears (display flex?)
+Modify javascript, generating the time blocks from javascript (template literals?) jquery and jquery UI. Series of divs, one for each hour of the day to represent on their workday scheduler (9 am through 5 pm) Save icon next to it. Confirm message, appointment added to local storage. 
+
+Values should be there when I refresh the page.
+
 // $('.container')
 // $('#currentDay')
 //currentHour
 //Loop from 9 to 17
 for (var i=9; i<=17; i++) {
+
 
     //create a new block of HTML for each hour of the data
     //saving the current hour to a data attribute so it can be accessed from an event listner

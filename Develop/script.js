@@ -1,9 +1,63 @@
+// save reference to important DOM elements
+var timeDisplayEl = $("#currentDay");
+var containerEl = $(".container");
+var currentHour = '';
+var currentHourEl;
+var firstHour = 9; // first displayed time block, relative to hourMap (9AM)
+var lastHour = 17; // last display time block, relative to hourMap (5PM)
+var hourList = ["12AM","1AM","2AM","3AM","4AM","5AM","6AM","7AM","8AM","9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM","6PM","7PM","8PM","9PM","10PM","11PM"]; // map of military hours
+
+
+
+// handle displaying the time
+function displayTime() {
+  var now = moment().format('MMMM Do YYYY, h:mm:ss a');
+  timeDisplayEl.text(now);
+}
+
+function createTimeBlocks(){
+//save the current hour to a data attribute so it can be accessed from an event listener
+currentHour = moment().hour();
+    for (var i=9; i <= 17; i++) {
+        // create html row and first column for the hour.  
+        currentHourEl = '<div class="row time-block"> ' +
+            '<div class="col-md-1 hour d-flex align-items-center">' + hourList[i] + '</div> ';
+        
+        // makes classes for the second column: past, present, or future
+        if (i < currentHour) {//PAST(grey)
+            currentHourEl = currentHourEl + '<card class="col-md-10 description past text-center text-middle" id="text' + 
+                hourList[i] + '"></card> ';
+        }
+        else if (i === currentHour) {//PRESENT(red)
+            currentHourEl = currentHourEl + '<textarea class="col-md-10 description present" id="text' + 
+                hourList[i] + '"></textarea> ';
+        }
+        else {//FUTURE(green)
+            currentHourEl = currentHourEl + '<textarea class="col-md-10 description future" id="text' + 
+                hourList[i] + '"></textarea> ';
+        };
+
+        // adds third column for the save button
+        currentHourEl = currentHourEl +   '<div class="col-md-1 d-flex align-items-center">' + '<button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" aria-pressed="true">Save</button>'+'</div>';
+           
+
+        // add new elements to container
+    
+    containerEl.append(currentHourEl);
+    }
+}
+
+
+
 // $('.container')
 // $('#currentDay')
 //currentHour
 //Loop from 9 to 17
-for (var i=9; i<=17; i++) {
 
+/*for (var i=9; i<=17; i++) {
+        i=$('');
+        localStorage.setItem
+*/
     //create a new block of HTML for each hour of the data
     //saving the current hour to a data attribute so it can be accessed from an event listner
 
@@ -15,11 +69,13 @@ for (var i=9; i<=17; i++) {
    // var savedValueForHour = localStorage.getItem( "hour-" + i );
     //Access a number based value from a data attribute, join it together with a string so we can save a value into it. 
 
+    //current hour should be in red. Gray is past. Future hours in light green
+
     //Listening and responding to button clicks
 
-    E//vent listener goes on the container. Creating dynamic buttons in the HTML and we can listen to any button click that is bubbling up from our dom. 
+    //Event listener goes on the container. Creating dynamic buttons in the HTML and we can listen to any button click that is bubbling up from our dom. 
 
-    $('.container').on('click', 'button', function(event) {
+   /* $('.container').on('click', 'button', function(event) {
 
         event.target (access current thing .data()) //Can use jQuery if you want. 
 //Click events coming from any button elements that may exist at any button in time. 
@@ -27,6 +83,7 @@ for (var i=9; i<=17; i++) {
 //We will respond to our button clicks and respond to our specific data. I need to figure out that it's hour 9
     });
     
+*/
 
-
-}>)
+setInterval(displayTime, 1000);
+createTimeBlocks();
