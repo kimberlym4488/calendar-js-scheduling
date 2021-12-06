@@ -44,19 +44,19 @@ function createTimeBlocks()
         });
 //maybe this is it??? Didn't know how to make it these id's
         textToDo.attr(
-            "id",  hourList[i] + 'text'
+            'id',  `${hourList[i]}+text`
         );
         //adds section for past present future
         if (i < currentHour) {//PAST(grey)
             textToDo.addClass("past");
         }
  
-        else if (i < currentHour) {//CURRENT(red)
-            textToDo.addClass("past");
+        else if (i === currentHour) {//CURRENT(red)
+            textToDo.addClass("present");
         }
             
         else {//FUTURE(green)
-            if (i < currentHour) {//PAST(grey)
+            if (i > currentHour) {//PAST(grey)
                 textToDo.addClass("future");
             };
             
@@ -76,7 +76,6 @@ function createTimeBlocks()
     
     }
 }
-  
 
 setInterval(displayTime, 1000);
 createTimeBlocks();
@@ -102,8 +101,9 @@ createTimeBlocks();
 /*for (var i=9; i<=17; i++) {
         i=$('');
         localStorage.setItem
+
 */
-    //create a new block of HTML for each hour of the data
+ /*   //create a new block of HTML for each hour of the data
     //saving the current hour to a data attribute so it can be accessed from an event listner
 
     //i = current hour of the loop, 9-17.
