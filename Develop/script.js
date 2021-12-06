@@ -9,8 +9,6 @@ var hourList = ["12AM","1AM","2AM","3AM","4AM","5AM","6AM","7AM","8AM","9AM","10
 
 var i=[];
 
-
-
 // handle displaying the time
 function displayTime() {
   var now = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -26,31 +24,27 @@ function createTimeBlocks()
     for (i=9; i <= 17; i++) 
     {
         // create html row and first column for the hour.  
-        var mainRow = $("<form>").attr({
-            "class":"time-block row "
+        var mainRow = $("<div>").attr({
+            "class":"time-block row ",
+            'id':`hour-${i}`
         });
         $(".container").append(mainRow);
-        console.log(hourList[i]);
 
         var hourField = $('<div>').text(hourList[i]).attr({
-            "class": "col-md-1 hour "
+            "class": `col-md-1 `
+             
         });
 //is this the issue??? I think I need the hourList index there to match it for the local storage.
         // makes classes for the second column:
-        var dataField = $('<div>').attr({"class":"col-md-10"});
+        //var dataField = $('<div>').attr({"class":"col-md-10"});
         var textToDo = $('<textarea>');
-        dataField.append(textToDo);
+        //dataField.append(textToDo);
         textToDo.attr({
-            "class":"col-md-12 todo"
+            "class":"col-md-10 todo description"
         });
 //maybe this is it??? Didn't know how to make it these id's
-var timeBlockID=$("#hour-"+i).children(".todo");
+//var timeBlockID=$("#hour-"+i).children(".todo");
 
-        textToDo.attr(
-            'id',  timeBlockID
-        );
-
-        
         console.log($(textToDo).text)
         //adds section for past present future
         if (i < currentHour) {//PAST(grey)
@@ -69,53 +63,51 @@ var timeBlockID=$("#hour-"+i).children(".todo");
         var saveButton = $("<i class='far fa-save save fa-lg'></i>")
 
         var saveTextToDo =  $("<button>").attr({
-            "class": "col-md-1 save "
+            "class": "col-md-1 save saveButton"
         });
         
         saveTextToDo.append(saveButton);
         // add new elements to container
-        mainRow.append(hourField, dataField, saveTextToDo);
-
-    
+        mainRow.append(hourField, textToDo, saveTextToDo);
     }
 }
 //declare hourData outside function so i can use it later.
 
-var hourData=[];
-
-function saveData () {
-    saveButton.on("click", function(event){
-    event.currentTarget;
-    event.preventDefault();
-    //ALWAYS SAYS 6 PM
-       
-    hourData={
-        hour:timeBlockID,
-        textValue:(".todo")
+//var hourData={
+    //hour:timeBlockID,
+    //textValue:(".todo")
+//};
+$(document).ready(function(){
+$('.saveButton').on('click', function() {
+    console.log("Saved button clicked");
+    //get values from element where button was clicked
+     var value = $(this)
+       .siblings('.description')
+       .val();
+       console.log("This is the value of the text area", value);
+     var time = $(this)
+       .parent()
+       .attr('id');
+       console.log("This is the value of the time", time);
+    
+     localStorage.setItem(time, value);
     }
-    //put item in local storage
-    localStorage.setItem($("#hourList[i]"), JSON.stringify(hour,textValue));
-    // Retrieve
-    return;
-}
-)
-}
-
+    )
+})
 //should run at beginning to pull saved data for each hour into the corresponding hour row. Says HOUR DATA not defined???
 function init(){
     for( j=0; j < localStorage.length; j++ ) {
-document.createElement("savedData").innerHTML = JSON.parse(localStorage.getItem(hourData));
+document.createElement("savedData").innerHTML = JSON.parse(localStorage.getItem("hourData"));
 $(".todo").append("savedData");
 }
 // get data from local storge upon initialization
-
 }
 
 //helper functions 
 setInterval(displayTime, 1000);
 createTimeBlocks();
 init();
-saveData();
+
 
 
 
