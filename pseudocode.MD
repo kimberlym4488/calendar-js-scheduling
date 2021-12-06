@@ -38,3 +38,13 @@ We will respond to our button clicks and respond to our specific data. I need to
 
 
 }>)
+
+create the button using jQuery or document.createElement. Assign it an ID. button-${hourList[i]}
+based off of the hour list of the button you can find the input that is in the text-hourList. 
+
+Assign the click event to the button after it is created. $(".button).click(function(e))
+event.currentTarget
+button-hourList[i] 
+.slice want just the hour list. 
+ text + hourList[i].
+"hourList[i]":($("input").val())

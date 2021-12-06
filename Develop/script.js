@@ -17,56 +17,81 @@ function displayTime() {
   timeDisplayEl.text(now);
 }
 
-function createTimeBlocks(){
+function createTimeBlocks()
+{
 //save the current hour to a data attribute so it can be accessed from an event listener
-currentHour = moment().hour();
-    for (i=9; i <= 17; i++) {
+    currentHour = moment().hour();
+    console.log(currentHour);
+
+    for (i=9; i <= 17; i++) 
+    {
         // create html row and first column for the hour.  
-        currentHourEl = '<div class="row time-block"> ' +
-            '<div class="col-md-1 hour d-flex align-items-center">' + hourList[i] + '</div> ';
-        
-        // makes classes for the second column: past, present, or future
+        var mainRow = $("<form>").attr({
+            "class":"row time-block"
+        });
+        containerEl.append(mainRow);
+
+        var hourField = $('<div>').text(hourList[i]).attr({
+            "class": "col-md-1 hour"
+        });
+//is this the issue??? I think I need the hourList index there to match it for the local storage.
+        // makes classes for the second column:
+        var dataField = $('<div>');
+        var textToDo = $('<textarea>');
+        dataField.append(textToDo);
+        textToDo.attr({
+            "class":"col-md-10 todo"
+        });
+//maybe this is it??? Didn't know how to make it these id's
+        textToDo.attr(
+            "id",  hourList[i] + 'text'
+        );
+        //adds section for past present future
         if (i < currentHour) {//PAST(grey)
-            currentHourEl += '<input class="col-md-10 todo past text-center text-middle" id="text' + 
-                hourList[i] + '"></input> ';
+            textToDo.addClass("past");
         }
-        else if (i === currentHour) {//PRESENT(red)
-            currentHourEl += '<input class="col-md-10 todo present" id=" text' +  hourList[i] + '" ></input> ';
+ 
+        else if (i < currentHour) {//CURRENT(red)
+            textToDo.addClass("past");
         }
+            
         else {//FUTURE(green)
-            currentHourEl += '<input class="col-md-10 todo future" id=" text' + hourList[i] + '" ></input> ';
-        }; 
-
+            if (i < currentHour) {//PAST(grey)
+                textToDo.addClass("future");
+            };
+            
         // adds third column for the save button
-        currentHourEl +=   '<div class="col-md-1 d-flex align-items-center save">' + '<button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" aria-pressed="true">Save</button>'+'</div>';
-      
+        var saveButton = $("<i class='far fa-save fa-lg'></i>").click(function(event) {
+            event.preventDefault();
+            event.currentTarget;
+        })
+        var saveTextToDo =  $("<button>").attr({
+            "class": "col-md-1 save"
+        });
+
+        saveTextToDo.append(saveButton);
         // add new elements to container
+      
+        mainRow.append(hourField, dataField, saveTextToDo);
     
-        containerEl.append(currentHourEl);
     }
-    
 }
-
-function allowText (){
-containerEl.on("keypress", function(event) {
   
-    console.log(`Why isn't this working $("input").val()`);
 
-}
-)
+setInterval(displayTime, 1000);
+createTimeBlocks();
+
 
 //I want to save the text into a new variable when someone presses save
-containerEl.on("click", "button", function(event){
+/* containerEl.on("click", "button", function(event){
     event.preventDefault();
-    event.stopPropagation();
+    event.currentTarget;
+
     console.log($("input").val());
     localStorage.setItem("text",JSON.stringify($("input").val()));
 }
 )
-}
-    
-
-
+*/
 
 
 // $('.container')
@@ -102,10 +127,4 @@ containerEl.on("click", "button", function(event){
 
 //We will respond to our button clicks and respond to our specific data. I need to figure out that it's hour 9
     });
-    
-*/
-
-setInterval(displayTime, 1000);
-createTimeBlocks();
-allowText();
-
+    */
