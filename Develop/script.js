@@ -37,12 +37,9 @@ currentHour = moment().hour();
             currentHourEl += '<input class="col-md-10 todo future" id=" text' + hourList[i] + '" ></input> ';
         }; 
 
-
         // adds third column for the save button
         currentHourEl +=   '<div class="col-md-1 d-flex align-items-center save">' + '<button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" aria-pressed="true">Save</button>'+'</div>';
       
-           
-
         // add new elements to container
     
         containerEl.append(currentHourEl);
@@ -50,27 +47,23 @@ currentHour = moment().hour();
     
 }
 
-containerEl.on("keypress", function(e) {
-    e.stopPropagation();
- 
-    console.log($(".todo").val());
-    localStorage.setItem("text",JSON.stringify($(".todo").val()));
-   
+function allowText (){
+containerEl.on("keypress", function(event) {
+  
+    console.log(`Why isn't this working $("input").val()`);
+
 }
 )
 
-
-//I want to save the text into a new variable when some
-containerEl.on("click", "button", function(e){
-    e.preventDefault();
+//I want to save the text into a new variable when someone presses save
+containerEl.on("click", "button", function(event){
+    event.preventDefault();
+    event.stopPropagation();
     console.log($("input").val());
-
-    
-
+    localStorage.setItem("text",JSON.stringify($("input").val()));
 }
 )
-   
-
+}
     
 
 
@@ -114,4 +107,5 @@ containerEl.on("click", "button", function(e){
 
 setInterval(displayTime, 1000);
 createTimeBlocks();
+allowText();
 
