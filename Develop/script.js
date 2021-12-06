@@ -32,7 +32,6 @@ function createTimeBlocks()
 
         var hourField = $('<div>').text(hourList[i]).attr({
             "class": `col-md-1 `
-             
         });
 //is this the issue??? I think I need the hourList index there to match it for the local storage.
         // makes classes for the second column:
@@ -43,18 +42,14 @@ function createTimeBlocks()
             "class":"col-md-10 todo description"
         });
 //maybe this is it??? Didn't know how to make it these id's
-//var timeBlockID=$("#hour-"+i).children(".todo");
 
-        console.log($(textToDo).text)
         //adds section for past present future
         if (i < currentHour) {//PAST(grey)
             textToDo.addClass("past");
         }
- 
         else if (i === currentHour) {//CURRENT(red)
             textToDo.addClass("present");
         }
-            
         else {//FUTURE(green)
                 textToDo.addClass("future");
             }
@@ -71,42 +66,54 @@ function createTimeBlocks()
         mainRow.append(hourField, textToDo, saveTextToDo);
     }
 }
-//declare hourData outside function so i can use it later.
+//declare time and value outside function so i can use it later.
+// get data from local storge upon initialization
 
-//var hourData={
-    //hour:timeBlockID,
-    //textValue:(".todo")
-//};
+
 $(document).ready(function(){
 $('.saveButton').on('click', function() {
     console.log("Saved button clicked");
     //get values from element where button was clicked
-     var value = $(this)
+     value = $(this)
        .siblings('.description')
        .val();
        console.log("This is the value of the text area", value);
-     var time = $(this)
+     time = $(this)
        .parent()
        .attr('id');
        console.log("This is the value of the time", time);
     
-     localStorage.setItem(time, value);
+     localStorage.setItem(time,value);
+     
     }
     )
 })
-//should run at beginning to pull saved data for each hour into the corresponding hour row. Says HOUR DATA not defined???
+
+//should run at beginning to pull saved data for each hour into the corresponding hour row.
 function init(){
-    for( j=0; j < localStorage.length; j++ ) {
-document.createElement("savedData").innerHTML = JSON.parse(localStorage.getItem("hourData"));
-$(".todo").append("savedData");
+    
+for( j=0; j < localStorage.length; j++ ) {
+
+    // the key in local storage is going back to an hour, then the value is what belongs to that hour. # pulls up the ID associated with the hour (#hour-[i] above). We're adding the value into the class "todo".
+    $("#"+localStorage.key(j) + " .todo").val(localStorage.getItem(localStorage.key(j)));
 }
-// get data from local storge upon initialization
+}
+
+    $("#resetButton").on("click", "button", function () {
+        reset();
+
+    });
+
+function reset(){
+    window.localStorage.clear();
+
 }
 
 //helper functions 
 setInterval(displayTime, 1000);
 createTimeBlocks();
 init();
+reset();
 
 
 
