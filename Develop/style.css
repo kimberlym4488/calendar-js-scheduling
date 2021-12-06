@@ -35,8 +35,7 @@ textarea {
   white-space: pre-wrap;
   height: auto;
   border-top: 1px solid white;
-  display:flex;
-  flex-wrap:nowrap;
+
  
 }
 

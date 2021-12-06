@@ -6,9 +6,9 @@ var currentHourEl;
 var firstHour = 9; // first displayed time block, relative to hourMap (9AM)
 var lastHour = 17; // last display time block, relative to hourMap (5PM)
 var hourList = ["12AM","1AM","2AM","3AM","4AM","5AM","6AM","7AM","8AM","9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM","6PM","7PM","8PM","9PM","10PM","11PM"]; // map of military hours
-var todo = '';
-var dataToSave = '';
-var i;
+
+var i=[];
+
 
 
 // handle displaying the time
@@ -30,6 +30,7 @@ function createTimeBlocks()
             "class":"time-block row "
         });
         $(".container").append(mainRow);
+        console.log(hourList[i]);
 
         var hourField = $('<div>').text(hourList[i]).attr({
             "class": "col-md-1 hour "
@@ -43,9 +44,14 @@ function createTimeBlocks()
             "class":"col-md-12 todo"
         });
 //maybe this is it??? Didn't know how to make it these id's
+var timeBlockID=$("#hour-"+i).children(".todo");
+
         textToDo.attr(
-            'id',  `${hourList[i]}` +"text"
+            'id',  timeBlockID
         );
+
+        
+        console.log($(textToDo).text)
         //adds section for past present future
         if (i < currentHour) {//PAST(grey)
             textToDo.addClass("past");
@@ -60,14 +66,10 @@ function createTimeBlocks()
             }
         
         // adds third column for the save button
-        var saveButton = $("<i class='far fa-save save fa-lg'></i>").click(function(event) {
-            event.preventDefault();
-            event.currentTarget;
-        })
+        var saveButton = $("<i class='far fa-save save fa-lg'></i>")
 
         var saveTextToDo =  $("<button>").attr({
             "class": "col-md-1 save "
-
         });
         
         saveTextToDo.append(saveButton);
@@ -77,9 +79,44 @@ function createTimeBlocks()
     
     }
 }
+//declare hourData outside function so i can use it later.
 
+var hourData=[];
+
+function saveData () {
+    saveButton.on("click", function(event){
+    event.currentTarget;
+    event.preventDefault();
+    //ALWAYS SAYS 6 PM
+       
+    hourData={
+        hour:timeBlockID,
+        textValue:(".todo")
+    }
+    //put item in local storage
+    localStorage.setItem($("#hourList[i]"), JSON.stringify(hour,textValue));
+    // Retrieve
+    return;
+}
+)
+}
+
+//should run at beginning to pull saved data for each hour into the corresponding hour row. Says HOUR DATA not defined???
+function init(){
+    for( j=0; j < localStorage.length; j++ ) {
+document.createElement("savedData").innerHTML = JSON.parse(localStorage.getItem(hourData));
+$(".todo").append("savedData");
+}
+// get data from local storge upon initialization
+
+}
+
+//helper functions 
 setInterval(displayTime, 1000);
 createTimeBlocks();
+init();
+saveData();
+
 
 
 //I want to save the text into a new variable when someone presses save
