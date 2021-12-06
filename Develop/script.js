@@ -27,24 +27,24 @@ function createTimeBlocks()
     {
         // create html row and first column for the hour.  
         var mainRow = $("<form>").attr({
-            "class":"row time-block"
+            "class":"time-block row "
         });
-        containerEl.append(mainRow);
+        $(".container").append(mainRow);
 
         var hourField = $('<div>').text(hourList[i]).attr({
-            "class": "col-md-1 hour"
+            "class": "col-md-1 hour "
         });
 //is this the issue??? I think I need the hourList index there to match it for the local storage.
         // makes classes for the second column:
-        var dataField = $('<div>');
+        var dataField = $('<div>').attr({"class":"col-md-10"});
         var textToDo = $('<textarea>');
         dataField.append(textToDo);
         textToDo.attr({
-            "class":"col-md-10 todo"
+            "class":"col-md-12 todo"
         });
 //maybe this is it??? Didn't know how to make it these id's
         textToDo.attr(
-            'id',  `${hourList[i]}+text`
+            'id',  `${hourList[i]}` +"text"
         );
         //adds section for past present future
         if (i < currentHour) {//PAST(grey)
@@ -56,23 +56,24 @@ function createTimeBlocks()
         }
             
         else {//FUTURE(green)
-            if (i > currentHour) {//PAST(grey)
                 textToDo.addClass("future");
-            };
-            
+            }
+        
         // adds third column for the save button
-        var saveButton = $("<i class='far fa-save fa-lg'></i>").click(function(event) {
+        var saveButton = $("<i class='far fa-save save fa-lg'></i>").click(function(event) {
             event.preventDefault();
             event.currentTarget;
         })
-        var saveTextToDo =  $("<button>").attr({
-            "class": "col-md-1 save"
-        });
 
+        var saveTextToDo =  $("<button>").attr({
+            "class": "col-md-1 save "
+
+        });
+        
         saveTextToDo.append(saveButton);
         // add new elements to container
-      
         mainRow.append(hourField, dataField, saveTextToDo);
+
     
     }
 }
