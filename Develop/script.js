@@ -55,7 +55,7 @@ function createTimeBlocks()
             }
         
         // adds third column for the save button
-        var saveButton = $("<i class='far fa-save save fa-lg'></i>")
+        var saveButton = $("<i class='far fa-save save'></i>")
 
         var saveTextToDo =  $("<button>").attr({
             "class": "col-md-1 save saveButton"
