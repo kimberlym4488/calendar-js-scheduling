@@ -20,12 +20,12 @@ This schedule will enable a user to add to-do's at the beginning (and throughout
 ## Home Page
 (Click Image to see live page)
 
->[![Preview-Image-1](https://user-images.githubusercontent.com/92805933/144928138-9ae09f64-31ef-4d68-bc5f-02d862bc8b0a.PNG)](https://kimberlym4488.github.io/calendar-js-scheduling/)
+>[![Preview-Image-1](https://user-images.githubusercontent.com/92805933/145342004-d2baf99e-e30e-4b99-9e53-416ff4f2cf5f.PNG)](https://kimberlym4488.github.io/calendar-js-scheduling/)
 
 ## Local Storage - Save
 (Click Image to see live page)
 
->[![Local-Storage-1](https://user-images.githubusercontent.com/92805933/144928416-62f6d307-3876-4f47-abcd-965e9f8070c3.PNG)](https://kimberlym4488.github.io/calendar-js-scheduling/)
+>[![Local-Storage-1](https://user-images.githubusercontent.com/92805933/145341943-731ddb70-4a8d-4de3-8a1b-5be432406c49.PNG)](https://kimberlym4488.github.io/calendar-js-scheduling/)
 
 # Features
 The planner has a few features to improve the user experience
